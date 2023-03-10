@@ -53,16 +53,17 @@ export const Timer = () => {
 
   const clock = Math.round(timeLeft / totalTime * 100);
 
-  const minutes = Math.floor(timeLeft / 60);
+  let minutes = Math.floor(timeLeft / 60);
   let seconds = timeLeft % 60;
 
+  const timerMinutes = minutes < 10 ? `0${minutes}` : minutes;
   const timerSeconds = seconds < 10 ? `0${seconds}` : seconds;
 
   return (
     <MainContainer>
       <Header />
       <TimerContainer>
-        <TimerStyled value={clock}>{minutes + ':' + timerSeconds}</TimerStyled>
+        <TimerStyled value={clock}>{timerMinutes + ':' + timerSeconds}</TimerStyled>
       </TimerContainer>
 
       <ButtonContainer>
