@@ -5,7 +5,7 @@ export const MainContainer = styled.div`
     flex-direction: column;
 `;
 
-export const TimerContainer = styled.div`
+export const TimerContainer = styled.section`
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -17,7 +17,7 @@ export const TimerStyled = styled.div`
     font-size: 5.5rem;
 `;
 
-export const ButtonContainer = styled.div`
+export const ButtonContainer = styled.section`
     display: flex;
     justify-content: space-evenly;
 `;

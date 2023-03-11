@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { BackButton } from '../Buttons/BackButton';
+import { MainButton } from '../Buttons/MainButton';
 import { OptionsContext } from '../Context/OptionsContext';
 import { OptionsStyle } from './Options.styled';
 
@@ -15,7 +15,7 @@ export const Options = () => {
       <label htmlFor='timeToBreak'>Break Minutes: </label>
       <input id='timeToBreak' defaultValue={timesOption.breakMinutes} min={1} max={40} onChange={newTimeToBreak => timesOption.setTimeToBreak(newTimeToBreak.target.value)}/>
 
-      <BackButton style={{fontSize: '1rem', marginTop: '20px'}} onClick={() => timesOption.setShowOptions(false)}/>
+      <MainButton style={{fontSize: '1rem', marginTop: '20px'}} onClick={() => timesOption.setShowOptions(false)}>Back</MainButton>
     </OptionsStyle>
   )
 }

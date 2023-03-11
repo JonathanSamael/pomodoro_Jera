@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
-import { PauseButton } from '../Buttons/PauseButton';
-import { PlayButton } from '../Buttons/PlayButton';
-import { MainContainer, TimerContainer, TimerStyled, ButtonContainer } from './Timer.styled';
-import { Header } from '../Header';
 import { OptionsContext } from '../Context/OptionsContext';
+import { Header } from '../Header';
+import { MainContainer, TimerContainer, TimerStyled, ButtonContainer } from './Timer.styled';
+import { MainButton } from '../Buttons/MainButton';
 import sound from '../../assets/notification-song.mp3'
 
 export const Timer = () => {
@@ -48,15 +47,10 @@ export const Timer = () => {
 
     return () => clearInterval(interval);
   }, [timesOption])
-  const totalTime = mode === 'work'
-  ? timesOption.workMinutes * 60
-  : timesOption.breakMinutes * 60;
-  
-  const clock = Math.round(timeLeft / totalTime * 100);
-  
+
   let minutes = Math.floor(timeLeft / 60);
   let seconds = timeLeft % 60;
-  
+
   const timerMinutes = minutes < 10 ? `0${minutes}` : minutes;
   const timerSeconds = seconds < 10 ? `0${seconds}` : seconds;
 
@@ -64,13 +58,16 @@ export const Timer = () => {
     <MainContainer>
       <Header />
       <TimerContainer>
-        <TimerStyled value={clock}>{timerMinutes + ':' + timerSeconds}</TimerStyled>
+        <TimerStyled >{timerMinutes + ':' + timerSeconds}</TimerStyled>
       </TimerContainer>
 
       <ButtonContainer>
-        {isActive
-          ? <PlayButton onClick={() => { setIsActive(false); isActiveRef.current = false }} />
-          : <PauseButton onClick={() => { setIsActive(true); isActiveRef.current = true }} />}
+        <MainButton onClick={() => {
+          const newIsActive = !isActive;
+          setIsActive(newIsActive);
+          isActiveRef.current = newIsActive;
+          }}>{isActive ? 'Play' : 'Pause'}
+        </MainButton>
       </ButtonContainer>
     </MainContainer>
   )

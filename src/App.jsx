@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { OptionsContext } from './components/Context/OptionsContext'
-import { Options } from './components/Pages/Options'
+import { Options } from './components/Settings/Options'
 import { Timer } from './components/Timer'
 import { GlobalStyled } from './Global.styled'
 
@@ -11,7 +11,7 @@ function App() {
   const [ timeToBreak, setTimeToBreak ] = useState(5);
 
   return (
-    <main>
+    <>
       <GlobalStyled />
       <OptionsContext.Provider value={{
         showOptions,
@@ -23,7 +23,7 @@ function App() {
       }}>
       {showOptions ? <Options /> : <Timer />}
       </OptionsContext.Provider>
-    </main>
+    </>
   )
 }
 
