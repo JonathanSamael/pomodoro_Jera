@@ -43,7 +43,7 @@ export const Timer = () => {
 
       setTimeLeft(timeLeftRef.current--)
 
-    }, 1000)
+    }, 100)
 
     return () => clearInterval(interval);
   }, [timesOption])
@@ -59,8 +59,8 @@ export const Timer = () => {
       <Header />
       <TimerContainer>
         <TimerStyled >{timerMinutes + ':' + timerSeconds}</TimerStyled>
+      {modeRef.current === 'work' ? <p>Time to Work!</p> : <p>Stop work, it's time to break!</p>}
       </TimerContainer>
-
       <ButtonContainer>
         <MainButton onClick={() => {
           const newIsActive = !isActive;
