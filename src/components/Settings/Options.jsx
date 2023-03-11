@@ -9,11 +9,11 @@ export const Options = () => {
 
   return (
     <OptionsStyle>
-      <label htmlFor='timeToWork'>Work Minutes: </label>
-      <input id='timeToWork' defaultValue={timesOption.workMinutes} min={1} max={120} onChange={(newTimeToWork) => timesOption.setTimeToWork(newTimeToWork.target.value)}/>
+      <label htmlFor='timeToWork'>Work Time: </label> 
+      <input autoFocus id='timeToWork' maxLength={2} defaultValue={timesOption.workMinutes} onChange={(newTimeToWork) => timesOption.setTimeToWork(newTimeToWork.target.value)}/>
 
-      <label htmlFor='timeToBreak'>Break Minutes: </label>
-      <input id='timeToBreak' defaultValue={timesOption.breakMinutes} min={1} max={40} onChange={newTimeToBreak => timesOption.setTimeToBreak(newTimeToBreak.target.value)}/>
+      <label htmlFor='timeToBreak'>Break Time: </label>
+      <input id='timeToBreak' maxLength={2} defaultValue={timesOption.breakMinutes}onChange={newTimeToBreak => timesOption.setTimeToBreak(newTimeToBreak.target.value)}/>
 
       <MainButton style={{fontSize: '1rem', marginTop: '20px'}} onClick={() => timesOption.setShowOptions(false)}>Back</MainButton>
     </OptionsStyle>
