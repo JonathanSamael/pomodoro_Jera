@@ -3,7 +3,8 @@ import { OptionsContext } from '../Context/OptionsContext';
 import { Header } from '../Header';
 import { MainContainer, TimerContainer, TimerStyled, ButtonContainer } from './Timer.styled';
 import { MainButton } from '../Buttons/MainButton';
-import sound from '../../assets/notification-song.mp3'
+import sound from '../../assets/notification-song.mp3';
+import { getFotmatedTime } from '../Shared/formatedTime';
 
 export const Timer = () => {
   const timesOption = useContext(OptionsContext);
@@ -19,14 +20,7 @@ export const Timer = () => {
   useEffect(() => {
 
     function switchMode() {
-      const nextMode = modeRef.current === 'work' ? 'break' : 'work';
-      const nextSeconds = (nextMode === 'work' ? timesOption.workMinutes : timesOption.breakMinutes) * 60;
-
-      modeRef.current = nextMode;
-      setMode(nextMode);
-
-      timeLeftRef.current = nextSeconds;
-      setTimeLeft(nextSeconds);
+      newMode();
     }
 
     timeLeftRef.current = timesOption.workMinutes * 60;
@@ -36,29 +30,38 @@ export const Timer = () => {
       if (isActiveRef.current) return;
 
       if (timeLeftRef.current === 0) {
-        const audio = new Audio(sound);
-        audio.play();
-        switchMode()
+        newAudioNotification();
+        switchMode();
       };
 
       setTimeLeft(timeLeftRef.current--)
 
-    }, 100)
+    }, 1000)
 
     return () => clearInterval(interval);
+
+    function newMode() {
+      const nextMode = modeRef.current === 'work' ? 'break' : 'work';
+      const nextSeconds = (nextMode === 'work' ? timesOption.workMinutes : timesOption.breakMinutes) * 60;
+
+      modeRef.current = nextMode;
+      setMode(nextMode);
+
+      timeLeftRef.current = nextSeconds;
+      setTimeLeft(nextSeconds);
+    };
   }, [timesOption])
 
-  let minutes = Math.floor(timeLeft / 60);
-  let seconds = timeLeft % 60;
-
-  const timerMinutes = minutes < 10 ? `0${minutes}` : minutes;
-  const timerSeconds = seconds < 10 ? `0${seconds}` : seconds;
+  function newAudioNotification() {
+    const audio = new Audio(sound);
+    audio.play();
+  }
 
   return (
     <MainContainer>
       <Header />
       <TimerContainer>
-        <TimerStyled >{timerMinutes + ':' + timerSeconds}</TimerStyled>
+        <TimerStyled >{getFotmatedTime(timeLeft)}</TimerStyled>
       {modeRef.current === 'work' ? <p>Time to Work!</p> : <p>Stop work, it's time to break!</p>}
       </TimerContainer>
       <ButtonContainer>
